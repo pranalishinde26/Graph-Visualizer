@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualizer</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Visualize</h1>
+        <p>Graph Visualizer · BFS · DFS · Weighted Edges</p>
+    </header>
+
+    <div class="layout">
+
+        <div class="canvas-wrap">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <div id="status">// READY — drag nodes, add edges, or run a traversal</div>
+
+        <!-- Traversal Controls -->
+        <div class="glass">
+            <h3>Traversal</h3>
+            <div class="btn-row">
+                <button class="bfs-btn" onclick="startBFS()">▶ BFS</button>
+                <button class="dfs-btn" onclick="startDFS()">▶ DFS</button>
+                <button class="danger" onclick="resetGraph()">⟳ Reset Graph</button>
+            </div>
+        </div>
+
+        <!-- Edge Controls -->
+        <div class="glass">
+            <h3>Edge Controls</h3>
+            <div class="form-grid">
+                <div class="field">
+                    <label>From (u)</label>
+                    <input id="eu" type="number" min="0" value="0">
+                </div>
+                <div class="field">
+                    <label>To (v)</label>
+                    <input id="ev" type="number" min="0" value="1">
+                </div>
+                <div class="field">
+                    <label>Weight</label>
+                    <input id="ew" type="number" min="1" value="1">
+                </div>
+                <button onclick="addEdge()">+ Add Edge</button>
+                <button class="danger" onclick="removeEdge()">− Remove Edge</button>
+            </div>
+        </div>
+
+        <div class="glass">
+            <h3>Adjacency Matrix</h3>
+            <div class="matrix-scroll">
+                <table id="matrixTable"></table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

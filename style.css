@@ -1,0 +1,381 @@
+/* ========================
+     CSS VARIABLES & RESET
+  ======================== */
+:root {
+    --bg: #03040a;
+    --panel-bg: rgba(10, 14, 30, 0.75);
+    --border: rgba(0, 255, 200, 0.18);
+    --neon-cyan: #00ffe7;
+    --neon-pink: #ff2d78;
+    --neon-purple: #a855f7;
+    --neon-gold: #ffd700;
+    --node-idle: #1a237e;
+    --node-glow: #00ffe7;
+    --text: #c8e6f0;
+    --mono: 'DM Mono', monospace;
+    --display: 'DM Sans', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+}
+
+/* ========================
+     SCANLINE + BG EFFECT
+  ======================== */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 200, 0.015) 2px,
+            rgba(0, 255, 200, 0.015) 4px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========================
+     HEADER
+  ======================== */
+header {
+    width: 100%;
+    padding: 20px 16px 8px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, #00ffe7 50%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+
+
+header p {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(200, 230, 240, 0.4);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+/* ========================
+     MAIN LAYOUT
+  ======================== */
+.layout {
+    width: 100%;
+    max-width: 960px;
+    padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================
+     CANVAS WRAPPER
+  ======================== */
+.canvas-wrap {
+    width: 100%;
+    position: relative;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: #070b18;
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 231, 0.08),
+        0 0 40px rgba(0, 255, 231, 0.06),
+        inset 0 0 60px rgba(0, 0, 30, 0.6);
+    touch-action: none;
+    cursor: crosshair;
+}
+
+/* ========================
+     GLASS PANEL
+  ======================== */
+.glass {
+    width: 100%;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass h3 {
+    font-family: var(--display);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+/* ========================
+     BUTTONS
+  ======================== */
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+button {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 9px 16px;
+    border: 1px solid var(--neon-cyan);
+    border-radius: 8px;
+    background: rgba(0, 255, 231, 0.06);
+    color: var(--neon-cyan);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s, color 0.2s;
+    text-transform: uppercase;
+}
+
+button:hover,
+button:focus {
+    background: rgba(0, 255, 231, 0.18);
+    box-shadow: 0 0 14px rgba(0, 255, 231, 0.35);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button.danger {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    background: rgba(255, 45, 120, 0.06);
+}
+
+button.danger:hover {
+    background: rgba(255, 45, 120, 0.18);
+    box-shadow: 0 0 14px rgba(255, 45, 120, 0.35);
+}
+
+button.bfs-btn {
+    border-color: #00ff99;
+    color: #00ff99;
+    background: rgba(0, 255, 153, 0.06);
+}
+
+button.bfs-btn:hover {
+    background: rgba(0, 255, 153, 0.18);
+    box-shadow: 0 0 14px rgba(0, 255, 153, 0.35);
+}
+
+button.dfs-btn {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+    background: rgba(168, 85, 247, 0.06);
+}
+
+button.dfs-btn:hover {
+    background: rgba(168, 85, 247, 0.18);
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.35);
+}
+
+/* ========================
+     CONTROL FORM
+  ======================== */
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 70px;
+}
+
+.field label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba(200, 230, 240, 0.5);
+    text-transform: uppercase;
+}
+
+.field input {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    padding: 7px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: rgba(0, 255, 231, 0.04);
+    color: var(--neon-cyan);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.field input:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0, 255, 231, 0.2);
+}
+
+/* Remove number spinners */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ========================
+     STATUS LOG
+  ======================== */
+#status {
+    font-size: 0.72rem;
+    color: var(--neon-gold);
+    min-height: 1.2em;
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: var(--mono);
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+    transition: opacity 0.3s;
+}
+
+/* ========================
+     ADJACENCY MATRIX
+  ======================== */
+.matrix-scroll {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    margin: 0 auto;
+}
+
+th,
+td {
+    width: 36px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 231, 0.1);
+    transition: background 0.3s, color 0.3s;
+}
+
+th {
+    color: var(--neon-cyan);
+    font-family: var(--display);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    background: rgba(0, 255, 231, 0.04);
+}
+
+td {
+    color: var(--text);
+    background: rgba(0, 0, 20, 0.5);
+}
+
+td.nonzero {
+    color: var(--neon-gold);
+    background: rgba(255, 215, 0, 0.06);
+}
+
+td.highlight {
+    background: rgba(0, 255, 231, 0.18) !important;
+    color: #fff !important;
+    box-shadow: inset 0 0 8px rgba(0, 255, 231, 0.3);
+}
+
+th.highlight {
+    background: rgba(0, 255, 231, 0.14) !important;
+    color: var(--neon-cyan) !important;
+    box-shadow: inset 0 0 6px rgba(0, 255, 231, 0.25);
+}
+
+/* ========================
+     TRAVERSAL LEGEND
+  ======================== */
+.legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: rgba(200, 230, 240, 0.5);
+}
+
+.legend span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
